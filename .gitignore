@@ -1,0 +1,13 @@
+.DS_Store
+.idea
+node_modules
+build/main-*
+build/overview.json
+build/manifest.json
+build/models
+yarn.lock
+*.db
+_*
+__pycache__
+.ipynb_checkpoints
+*.zip
