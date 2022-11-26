@@ -162,8 +162,7 @@ class PlotPage extends React.Component {
                             </select>
                         </div>
                     ) : ''}
-                </div>
-                <div className={'controls'}>
+
                     <div className={'group filters'}>
                         <span className={'label'}>Тип:</span>
                         <div>{Object.keys(this.state['types']).map(name => this.checkbox(name, 'types', this.state.type_color))}</div>
@@ -265,7 +264,7 @@ class PlotPage extends React.Component {
               {this.renderControls()}
               <div className={'annotation'}>
                   <div className={'item'}>
-                      <span className={'a-box'}><i className={'vl'}></i></span> Брейкпоинт (середина сигнала)
+                      <span className={'a-box'}><i className={'vl'}></i></span> Точка разрыва (середина сигнала)
                   </div>
                   
                   <div className={'item'}>
@@ -277,29 +276,23 @@ class PlotPage extends React.Component {
                           {example_signal}
                       </span> Значения покрытия для данного участка
                   </div>
-    
-                  <div className={'item'}>
-                      <span className={'a-box'}>
-                          {[...Array(5)].map((e, i) => <span className={'sax-ex'} key={i} />)}
-                      </span> Значения покрытия после SAX преобразования (сегментов=64, алфавит=32)
-                  </div>
 
                   <div className={'item'}>
                       <span className={'a-box t'}>
                           <span className={'tag side-BP'}>BP</span>
                           <span className={'tag side-BP'}>spSV</span>
                       </span>
-                      BP – Брейкпоинт (где L = R);
-                      spSV – Специальный брейкпоинт (произвольная точка из части сигнала)
+                      BP – точка разрыва (где L = R);
+                      spSV – Специальная точка разрыва (произвольная точка из части сигнала)
                   </div>
                   <div className={'item'}>
                       <span className={'a-box t'}>
                           <span className={'tag side-L'}>L</span>
                           <span className={'tag side-R'}>R</span>
                       </span>
-                      Индикатор брейкпоинта.
-                      L – начало аберрации (левый брейкпоинт);
-                      R – окончание аберрации (правый брейкпоинт);
+                      Индикатор точки разрыва.
+                      L – начало аберрации (левая точка разрыва);
+                      R – окончание аберрации (правая точка разрыва);
                   </div>
 
                   <div className={'item'}>

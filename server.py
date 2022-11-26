@@ -6,7 +6,7 @@ from flask import jsonify, request, Flask, send_file, send_from_directory, redir
 from gevent.pywsgi import WSGIServer
 
 # --------------------------------------------------------------------------- #
-options = {'db': '', 'port': 9915, 'dev': False, 'sax': 64, 'alphabet': 24, 'order': ''}
+options = {'db': '', 'port': 9915, 'dev': False, 'order': ''}
 for par in sys.argv[1:]:
     k, v = (par + ':').split(':')[0:2]
     if k in options: options[k] = v
@@ -24,8 +24,6 @@ def usage():
     echo('    db:[DB path name] \\\n')
     echo('    port:[server port, default: 9915] \\\n')
     echo('    dev:[dev-mode (app.run), default: false (WSGIServer)] \\\n')
-    echo('    sax:[SAX-transform width for plots, default: 64] \\\n')
-    echo('    alphabet:[SAX-transform height for plots (alphabet size), default: 24]\n')
     echo('    order:[databases order - list of names, example: HGDP,GIAB]\n')
     exit(1)
 
@@ -37,16 +35,8 @@ if not os.path.isfile(db):
     echo(f"  Database not found! (db:./path-to-db)\n\n", 31)
     usage()
 
-warnings.filterwarnings("ignore")
-
-from tslearn.piecewise import SymbolicAggregateApproximation
-from tslearn.preprocessing import TimeSeriesScalerMeanVariance
-
 coverage = open(bc, 'rb')
 app = Flask(__name__, static_url_path='', static_folder='build')
-sax = SymbolicAggregateApproximation(
-    n_segments=options['sax'],
-    alphabet_size_avg=options['alphabet'])
 
 # --------------------------------------------------------------------------- #
 # Api
@@ -85,8 +75,6 @@ def make_result(cur):
         coverage.seek((item['coverage_offset']) * 2)
         bin = coverage.read((item['end'] - item['start'] + 1) * 2)
         item['coverage'] = [(bin[i] * 256 + bin[i + 1]) for i in range(0, len(bin), 2)]
-        cls = TimeSeriesScalerMeanVariance().fit_transform([item['coverage']])
-        item['sax'] = [int(v[0]) for v in sax.fit_transform(cls)[0]]
         result.append(item)
     return jsonify(result)
 
