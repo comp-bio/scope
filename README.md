@@ -47,7 +47,7 @@ python3 server.py db:_CHM_GIAB port:8888 dev:yes
 
 Готово. Ваш интерфес работает в браузере по адресу: [http://127.0.0.1:8888/](http://127.0.0.1:8888/)
 
-![](./supplement/oneface.png)
+![](./supplement/scopeface.png)
 
 Описание параметров скрипта запуска веб-сервера:
 
